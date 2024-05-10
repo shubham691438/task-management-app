@@ -69,6 +69,10 @@ function App() {
     setTaskList(newTaskList)
   }
 
+  const handleEdit=(id)=>{
+    
+  }
+
   return (
     <div>
       <Navbar/>
