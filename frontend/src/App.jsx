@@ -8,45 +8,24 @@ import AddTask from './components/AddTask'
 import Task from './components/Task'
 import Datepicker from 'flowbite-datepicker/Datepicker';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 function App() {
   
-  const [count, setCount] = useState(0)
-  const [taskList,setTaskList] = useState([{
-    id:1,
-    taskName: 'Study Maths',
-    dueDate: '6 pm , Jan 24, 2024',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s',
-    priority: 'High',
-    completed:false,
-   
-  },
-  {
-    id:2,
-    taskName: 'Study Maths',
-    dueDate: '6 pm , Jan 24, 2024',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s',
-    priority: 'High',
-    completed:false,
-   
-  },
-  {
-    id:3,
-    taskName: 'Study Maths',
-    dueDate: '6 pm , Jan 24, 2024',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s',
-    priority: 'High',
-    completed:false,
-   
-  },
-  {
-    id:4,
-    taskName: 'Study Maths',
-    dueDate: '6 pm , Jan 24, 2024',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s',
-    priority: 'High',
-    completed:false,
-   
-  }])
+  const [taskList, setTaskList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(backendUrl+'/api/task/get')
+        const data = await response.json();
+        setTaskList(data.tasks);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
   
   useEffect(() => {
     const datepickerEl = document?.getElementById("datepicker");
@@ -54,24 +33,40 @@ function App() {
     new Datepicker(datepickerEl, {});
   }, []);
 
-  const handleDelete = (id) => {
-    const newTaskList = taskList.filter(task=>task.id!==id)
-    setTaskList(newTaskList)
+  const handleDelete = async (_id) => {
+    try {
+      await fetch(backendUrl + '/api/task/delete/' + _id, {
+        method: 'DELETE'
+      });
+      const newTaskList = taskList.filter(task => task._id !== _id);
+      setTaskList(newTaskList);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const handleCompletes = (id) => {
-    const newTaskList = taskList.map(task=>{
-      if(task.id===id){
-        return {...task,completed:true}
+  const handleCompleted = async (_id) => {
+    console.log("clicked completed");
+    try {
+      const response = await fetch(backendUrl + '/api/task/update/' + _id, {
+        method: 'PUT'
+      });
+      if (response.ok) {
+        const newTaskList = taskList.map(task => {
+          if (task._id === _id) {
+            return { ...task, completed: true }
+          }
+          return task
+        });
+        setTaskList(newTaskList);
+      } else {
+        console.log('Failed to update task');
       }
-      return task
-    })
-    setTaskList(newTaskList)
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const handleEdit=(id)=>{
-    
-  }
 
   return (
     <div>
@@ -98,8 +93,8 @@ function App() {
 
       <div className='mt-5'>
         
-        {
-          taskList.map((task,key)=><Task task={task} handleDelete={handleDelete} taskList={taskList} setTaskList={setTaskList} key={task.id}/>)
+        {taskList.length > 0 && 
+          taskList.map((task)=><Task task={task} handleDelete={handleDelete} handleCompleted={handleCompleted} taskList={taskList} setTaskList={setTaskList} key={task._id}/>)
         }
 
       </div>

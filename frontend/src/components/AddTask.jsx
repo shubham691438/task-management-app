@@ -1,6 +1,7 @@
 import React,{useEffect} from 'react'
 import Datepicker from 'flowbite-datepicker/Datepicker';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const AddTask = ({taskList,setTaskList}) => {
 
 useEffect(() => {
@@ -9,17 +10,35 @@ useEffect(() => {
     new Datepicker(datepickerEl, {});
     }, []);
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const dueDate = e.target.dueDate.value;
     const priority = e.target.priority.value;
     const description = e.target.description.value;
     console.log(name,dueDate,priority,description);
-    //reset to de
+    //reset 
     e.target.reset();
-    setTaskList([{taskName:name,dueDate:dueDate,description:description,priority:priority},...taskList])
-}    
+
+    try {
+        const response = await fetch(backendUrl+'/api/task/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, dueDate, priority, description })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            setTaskList([{ taskName: name, dueDate: dueDate, description: description, priority: priority }, ...taskList]);
+        } else {
+            console.log('Error:', response.statusText);
+        }
+    } catch (error) {
+        console.log('Error:', error);
+    }
+}
   return (
     <div>
          {/* Modal toggle */}

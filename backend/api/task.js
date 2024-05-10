@@ -11,7 +11,7 @@ const router=express.Router()
 
 router.post('/create',createTask);
 router.get('/get',getTasks);
-router.delete('/delete/:id',deleteTask);
-router.put('/update/:id',updateTask);
+router.delete('/delete/:_id',deleteTask);
+router.put('/update/:_id',updateTask);
 
 module.exports=router
