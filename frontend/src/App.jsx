@@ -99,7 +99,7 @@ function App() {
       <div className='mt-5'>
         
         {
-          taskList.map((task,key)=><Task task={task} handleDelete={handleDelete} key={task.id}/>)
+          taskList.map((task,key)=><Task task={task} handleDelete={handleDelete} taskList={taskList} setTaskList={setTaskList} key={task.id}/>)
         }
 
       </div>
