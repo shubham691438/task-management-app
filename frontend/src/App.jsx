@@ -17,6 +17,7 @@ function App() {
     dueDate: '6 pm , Jan 24, 2024',
     description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s',
     priority: 'High',
+    completed:false,
    
   },
   {
@@ -25,6 +26,7 @@ function App() {
     dueDate: '6 pm , Jan 24, 2024',
     description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s',
     priority: 'High',
+    completed:false,
    
   },
   {
@@ -33,6 +35,7 @@ function App() {
     dueDate: '6 pm , Jan 24, 2024',
     description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s',
     priority: 'High',
+    completed:false,
    
   },
   {
@@ -41,6 +44,7 @@ function App() {
     dueDate: '6 pm , Jan 24, 2024',
     description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s',
     priority: 'High',
+    completed:false,
    
   }])
   
@@ -50,10 +54,19 @@ function App() {
     new Datepicker(datepickerEl, {});
   }, []);
 
-  const handleDelete = (index) => {
-    const newTaskList = [...taskList];
-    newTaskList.splice(index,1);
-    setTaskList(newTaskList);
+  const handleDelete = (id) => {
+    const newTaskList = taskList.filter(task=>task.id!==id)
+    setTaskList(newTaskList)
+  }
+
+  const handleCompletes = (id) => {
+    const newTaskList = taskList.map(task=>{
+      if(task.id===id){
+        return {...task,completed:true}
+      }
+      return task
+    })
+    setTaskList(newTaskList)
   }
 
   return (
