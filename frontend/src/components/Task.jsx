@@ -7,16 +7,10 @@ const Task = ({task,taskList,setTaskList, handleDelete,handleCompleted}) => {
 
         <div className='flex p-5 justify-between'> 
         <div className='flex-col'>
-        <div className='text-2xl font-bold'>{task.taskName}</div>
-        <div className=' text-gray-400 font-semibold'>Due Date : {task.dueDate}</div>
-        <div className='mt-4 max-w-[600px]'>{task.description}</div>
+        <div className='text-md md:text-2xl font-bold'>{task.taskName}</div>
+        <div className='text-sm md:text-md text-gray-400 font-semibold'>Due Date : {task.dueDate}</div>
+        <div className='text-sm md:text-md mt-4 max-w-[600px]'>{task.description}</div>
         <div className='mt-5 flex '>
-            {/* <div data-modal-target="crud-modal" data-modal-toggle="crud-modal">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                </svg>
-            </div> */}
             <EditTask task={task} taskList={taskList} setTaskList={setTaskList} />
             <div className='ml-2' onClick={()=>{handleDelete(task._id)}}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" className="w-6 h-6 ">
@@ -25,7 +19,7 @@ const Task = ({task,taskList,setTaskList, handleDelete,handleCompleted}) => {
             </div>
             {
                 !task.completed && (
-                    <div className='ml-2' onClick={()=>handleCompleted(task._id)}>
+                    <div className='ml-2 ' onClick={()=>handleCompleted(task._id)}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#31c48d" className="w-6 h-6">
                             <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" />
                         </svg>
@@ -37,13 +31,13 @@ const Task = ({task,taskList,setTaskList, handleDelete,handleCompleted}) => {
         </div>
 
             <div className='relative'>
-                <div className="absolute w-32 right-3 rounded-full grid select-none items-center whitespace-nowrap bg-indigo-500 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white "><span>{task.priority + " Priority"}</span></div>
-                <div className='absolute bottom-3 right-3'>
+                <div className="text-xs absolute md:w-32 right-0 md:right-3 rounded-full grid select-none items-center whitespace-nowrap bg-indigo-500 py-1.5 px-3 font-sans font-bold  text-white "><span>{task.priority + " Priority"}</span></div>
+                <div className='absolute bottom-0 right-0 md:bottom-3 md:right-3'>
                 {
                     task.completed  &&
                     (
                         <div>
-                            <div className=" w-32 text-center right-3 rounded-full grid select-none items-center whitespace-nowrap bg-green-400 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white "><span>Completed</span></div>
+                            <div className=" md:w-32 text-center right-3 rounded-full grid select-none items-center whitespace-nowrap bg-green-400 py-1.5 px-3 font-sans text-xs font-bold  text-white "><span>Completed</span></div>
                         </div>
                     )
 

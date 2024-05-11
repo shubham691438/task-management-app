@@ -8,7 +8,7 @@ import Navbar from './components/Navbar'
 import AddTask from './components/AddTask'
 import Task from './components/Task'
 import DateFilter from './components/DateFilter'
-import { set } from 'date-fns'
+import { format } from 'date-fns'
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 function App() {
@@ -98,8 +98,8 @@ function App() {
       
       <div className='flex mt-5 justify-between '>
           <div className='flex-col'>
-            <div className='text-1xl md:text-4xl font-extrabold whitespace-nowrap dark:text-white'>All Task</div>
-            <div className='text-gray-500 text-xl'> After 11 May,2024</div>
+            <div className='text-1xl md:text-2xl font-extrabold whitespace-nowrap dark:text-white'>All Task</div>
+            <div className='text-sm md:text-xl text-gray-500'>{format(selectedDate || Date.now(),"E ,MMM dd, yyyy")}</div>
           </div>
           <AddTask taskList={taskList} setTaskList={setTaskList}/>
       </div>
