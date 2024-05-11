@@ -2,6 +2,7 @@ import { useState,useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Nav2 from './components/Nav2'
 
 import Navbar from './components/Navbar'
 import AddTask from './components/AddTask'
@@ -81,7 +82,7 @@ function App() {
           <AddTask taskList={taskList} setTaskList={setTaskList}/>
       </div>
 
-
+      <Nav2/>
       <div className='mt-5'>
         
         {taskList.length > 0 && 
@@ -95,6 +96,8 @@ function App() {
         }
 
       </div>
+
+      
           
     </div>
   )
