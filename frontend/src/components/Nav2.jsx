@@ -4,7 +4,7 @@ const Nav2 = ({isSelectedAll,priorityFilter,completedFilter,handleAllSelect,hand
     console.log("completed filter",completedFilter)
 return (
     <div className='mt-3 md:mt-5'>
-        <nav className="border-gray-200 bg-gray-900 text-sm md:text-xl">
+        <nav className="border-gray-200 bg-gray-900 text-sm md:text-lg">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:p-4">
                 <div className=" block w-auto overflow-x-auto" id="navbar-default">
                     <ul className="font-medium flex  p-0  rounded-lg flex-row md:space-x-8 rtl:space-x-reverse mt-0 border-0  bg-gray-900 border-gray-700">
