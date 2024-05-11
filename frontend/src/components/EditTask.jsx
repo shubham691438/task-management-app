@@ -44,15 +44,11 @@ const EditTask = ({task,taskList,setTaskList}) => {
     const HandleEdit = async (e) => {
        
         e.preventDefault();
-        const name = taskName;
-        const dueDate = dueDate;
-        const priority = priority;
-        const description = description;
-        console.log(name,dueDate,priority,description);
+    
         //reset to de
         e.target.reset();
         const updatedTask = {
-            taskName: name,
+            taskName: taskName,
             dueDate: dueDate,
             priority: priority,
             description: description
