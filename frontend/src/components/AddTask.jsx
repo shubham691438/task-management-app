@@ -32,8 +32,10 @@ const handleSubmit = async (e) => {
         if (response.ok) {
             const data = await response.json();
             setTaskList([{ taskName: name, dueDate: dueDate, description: description, priority: priority }, ...taskList]);
+            alert('Task added successfully');
         } else {
             console.log('Error:', response.statusText);
+            alert('Failed to add task')
         }
     } catch (error) {
         console.log('Error:', error);
