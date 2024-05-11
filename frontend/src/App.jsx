@@ -99,7 +99,8 @@ function App() {
       <div className='flex mt-5 justify-between '>
           <div className='flex-col'>
             <div className='text-1xl md:text-2xl font-extrabold whitespace-nowrap dark:text-white'>All Task</div>
-            <div className='text-sm md:text-xl text-gray-500'>{format(selectedDate || Date.now(),"E ,MMM dd, yyyy")}</div>
+            {selectedDate ? (<div className='text-sm md:text-xl text-gray-500'>{format(new Date(parseInt(selectedDate.substring(6,10)),parseInt(selectedDate.substring(3,5)),parseInt(selectedDate.substring(0,2)) ) || Date.now(), "E ,MMM dd, yyyy")}</div>):
+            <div className='text-sm md:text-xl text-gray-500'>{format(new Date(), "E ,MMM dd, yyyy")}</div>}
           </div>
           <AddTask taskList={taskList} setTaskList={setTaskList}/>
       </div>
