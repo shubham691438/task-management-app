@@ -46,22 +46,21 @@ function App() {
   }
 
   const handleCompleted = async (_id) => {
-    console.log("clicked completed");
     try {
-      const response = await fetch(backendUrl + '/api/task/update/' + _id, {
-        method: 'PUT'
+      await fetch(backendUrl + '/api/task/update/' + _id, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ completed: true })
       });
-      if (response.ok) {
-        const newTaskList = taskList.map(task => {
-          if (task._id === _id) {
-            return { ...task, completed: true }
-          }
-          return task
-        });
-        setTaskList(newTaskList);
-      } else {
-        console.log('Failed to update task');
-      }
+      const updatedTaskList = taskList.map(task => {
+        if (task._id === _id) {
+          return { ...task, completed: true };
+        }
+        return task;
+      });
+      setTaskList(updatedTaskList);
     } catch (error) {
       console.log(error);
     }
