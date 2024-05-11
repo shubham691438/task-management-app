@@ -45,7 +45,7 @@ const handleSubmit = async (e) => {
   return (
     <div>
          {/* Modal toggle */}
-        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" className='flex justify-center md:min-w-40 items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-4 py-2'>
+        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" className='flex justify-center md:min-w-40 items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-1.5 py-1 md:px-4 md:py-2'>
             <span >Add Task</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
