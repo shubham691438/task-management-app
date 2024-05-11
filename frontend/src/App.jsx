@@ -8,12 +8,16 @@ import Navbar from './components/Navbar'
 import AddTask from './components/AddTask'
 import Task from './components/Task'
 import DateFilter from './components/DateFilter'
+import { set } from 'date-fns'
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 function App() {
   
   const [taskList, setTaskList] = useState([]);
   const [selectedDate, setSelectedDate] = useState('')
+  const [completedFilter, setCompletedFilter] = useState(false)
+  const [priorityFilter, setPriorityFilter] = useState('')
+  const [isSelectedAll, setIsSelectedAll] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,6 +72,24 @@ function App() {
     }
   }
 
+  const handleCompletedFilter = () => {
+    setCompletedFilter(true)
+    setPriorityFilter('')
+    setIsSelectedAll(false)
+  }
+  const handlePriorityFilter = (priority) => {
+    setPriorityFilter(priority)
+    setCompletedFilter(false)
+    setIsSelectedAll(false)
+  }
+
+  const handleSelectAll = () => {
+    console.log('selected all')
+    setIsSelectedAll(true)
+    setPriorityFilter('')
+    setCompletedFilter(false)
+  }
+
 
   return (
     <div>
@@ -82,7 +104,7 @@ function App() {
           <AddTask taskList={taskList} setTaskList={setTaskList}/>
       </div>
 
-      <Nav2/>
+      <Nav2 handleAllSelect={handleSelectAll} isSelectedAll={isSelectedAll} priorityFilter={priorityFilter} completedFilter={completedFilter} handleCompletedFilter={handleCompletedFilter} handlePriorityFilter={handlePriorityFilter}/>
       <div className='mt-5'>
         
         {taskList.length > 0 && 
@@ -92,7 +114,22 @@ function App() {
             }else if(task.dueDate === selectedDate){
               return task
             }
-          }).map((task)=><Task task={task} handleDelete={handleDelete} handleCompleted={handleCompleted} taskList={taskList} setTaskList={setTaskList} key={task._id}/>)
+          })
+          .filter((task)=>{
+            if(completedFilter){
+              return task.completed
+            }else{
+              return task
+            }
+          })
+          .filter((task)=>{
+            if(priorityFilter === ''){
+              return task
+            }else if(task.priority.toLowerCase() === priorityFilter.toLowerCase()){
+              return task
+            }
+          })
+          .map((task)=><Task task={task} handleDelete={handleDelete} handleCompleted={handleCompleted} taskList={taskList} setTaskList={setTaskList} key={task._id}/>)
         }
 
       </div>
