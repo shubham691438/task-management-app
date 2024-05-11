@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import Datepicker from 'flowbite-datepicker/Datepicker';
 import { Modal } from 'flowbite';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const EditTask = ({task,taskList,setTaskList}) => {
     const [taskName, setTaskName] = useState(task.taskName);
     const [dueDate, setDueDate] = useState(task.dueDate);
@@ -54,7 +55,7 @@ const EditTask = ({task,taskList,setTaskList}) => {
             description: description
         };
         try {
-            const response = await fetch(`/api/task/update/${task.id}`, {
+            const response = await fetch(backendUrl+`/api/task/update/${task._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -63,14 +64,16 @@ const EditTask = ({task,taskList,setTaskList}) => {
             });
             if (response.ok) {
                 const updatedTaskList = taskList.map(t => {
-                    if (t.id === task.id) {
+                    if (t._id === task._id) {
                         return { ...t, ...updatedTask };
                     }
                     return t;
                 });
                 setTaskList(updatedTaskList);
+                alert('Task updated successfully')
             } else {
                 console.error('Failed to update task');
+                alert('Failed to update task')
             }
         } catch (error) {
             console.error('Error:', error);
