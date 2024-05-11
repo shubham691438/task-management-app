@@ -3,7 +3,7 @@ import EditTask from './EditTask'
 
 const Task = ({task,taskList,setTaskList, handleDelete,handleCompleted}) => {
   return (
-    <div class="w-full rounded-lg shadow bg-gray-800 border-gray-700 my-5">
+    <div className="w-full rounded-lg shadow bg-gray-800 border-gray-700 my-5">
 
         <div className='flex p-5 justify-between'> 
         <div className='flex-col'>
