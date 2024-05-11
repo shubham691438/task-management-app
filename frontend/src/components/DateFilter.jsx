@@ -34,7 +34,7 @@ const DateFilter = ({taskList, setTaskList,selectedDate,handleFilterDateChange})
 		
 	}
 	const handleClose = (state) => {
-		setShow(state)
+		setShow(false)
 	}
 
 
