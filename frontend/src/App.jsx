@@ -12,6 +12,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
 function App() {
   
   const [taskList, setTaskList] = useState([]);
+  const [selectedDate, setSelectedDate] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +27,10 @@ function App() {
 
     fetchData();
   }, []);
+
+  const handleFilterDateChange = (selectedDate) => {
+    setSelectedDate(selectedDate)
+  }
   
  
 
@@ -66,7 +71,7 @@ function App() {
   return (
     <div>
       <Navbar/>
-      <DateFilter taskList={taskList} setTaskList={setTaskList}/>
+      <DateFilter taskList={taskList} setTaskList={setTaskList} handleFilterDateChange={handleFilterDateChange} selectedDate={selectedDate}/>
       
       <div className='flex mt-5 justify-between '>
           <div className='flex-col'>
@@ -80,7 +85,13 @@ function App() {
       <div className='mt-5'>
         
         {taskList.length > 0 && 
-          taskList.map((task)=><Task task={task} handleDelete={handleDelete} handleCompleted={handleCompleted} taskList={taskList} setTaskList={setTaskList} key={task._id}/>)
+          taskList.filter((task)=>{
+            if(selectedDate === ''){
+              return task
+            }else if(task.dueDate === selectedDate){
+              return task
+            }
+          }).map((task)=><Task task={task} handleDelete={handleDelete} handleCompleted={handleCompleted} taskList={taskList} setTaskList={setTaskList} key={task._id}/>)
         }
 
       </div>
