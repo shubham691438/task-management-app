@@ -32,7 +32,7 @@ const Task = ({task,taskList,setTaskList, handleDelete,handleCompleted}) => {
 
             <div className='relative'>
                 <div className="text-xs text-center absolute md:w-32 right-0 md:right-3 rounded-full grid select-none items-center whitespace-nowrap bg-indigo-500 py-1.5 px-3 font-sans font-bold  text-white "><span>{task.priority + " Priority"}</span></div>
-                <div className='absolute bottom-0 right-0 md:bottom-3 md:right-3'>
+                <div className='absolute bottom-0 right-0 md:bottom-0 md:right-3'>
                 {
                     task.completed  &&
                     (
